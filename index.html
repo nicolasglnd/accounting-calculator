@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+  	<head>
+    	<meta charset="utf-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    	<link rel="stylesheet" href="styles.css" />
+<!-- 		<link href="https://fonts.googleapis.com/css2?family=Aldrich&display=swap" rel="stylesheet" /> -->
+    	<title>Accounting Calculator</title>
+  	</head>
+  	<body>
+		<h1>Accounting Calculator</h1>
+		<div id="controls">
+			<label class="toggle">
+				Normal Mode
+				<input id="long-short-method" class="toggle-input" type="checkbox" checked />
+				<div class="toggle-fill"></div>
+			</label>
+			<div id="container-decimals-dropdown">
+				Decimals Allowed
+				<div class="dropdown">
+					<label>Default<i class="caret-down"></i></label>
+					<ul class="dropdown-ul">
+						<li class="decimal-option">
+							<label>
+								Default
+								<input type="radio" name="decimal-check" value="Default" checked />
+							</label>
+						</li>
+						<li class="decimal-option">
+							<label>
+								2
+								<input type="radio" name="decimal-check" value="2" />
+							</label>
+						</li>
+						<li class="decimal-option">
+							<labeL>
+								3
+								<input type="radio" name="decimal-check" value="3" />
+							</label>
+						</li>
+						<li class="decimal-option">
+							<label>
+								4
+								<input type="radio" name="decimal-check" value="4" />
+							</label>
+						</li>
+						<li class="decimal-option">
+							<label>
+								5
+								<input type="radio" name="decimal-check" value="5" />
+							</label>
+						</li>
+						<li class="decimal-option">
+							<label>
+								6
+								<input type="radio" name="decimal-check" value="6" />
+							</label>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<button id="key-mapping" data-open-target="#change-keymap-popup">Key Mapping</button>
+			<div id="language-container" class="dropdown">
+				<label>Language<i class="caret-down"></i></label>
+				<ul class="dropdown-ul">
+					<li class="language-option">
+						<label>
+							English
+							<input type="radio" data-language="english" name="Language-option" value="english" checked/>
+						</label>
+					</li>
+					<li class="language-option">
+						<label>
+							Español
+							<input type="radio" data-language="spanish" name="Language-option" value="spanish" />
+						</label>
+					</li>
+				</ul>
+			</div>
+			<label class="toggle">
+				Show History
+				<input id="history-toggle" class="toggle-input" type="checkbox" />
+				<div class="toggle-fill"></div>
+			</label>
+			<label class="toggle">
+				Dark Mode
+				<input id="dark-mode-toggle" class="toggle-input" type="checkbox" checked />
+				<div class="toggle-fill"></div>
+			</label>
+		</div>
+		<label id="menu-header" class="menu-lines">
+			<input id="controls-check" type="checkbox" />
+		</label>
+
+		<div id="change-keymap-popup" class="changing-keymap">
+			<div id="popup-header">
+				<h2>Change the Key Mapping</h2>
+				<button class="close-button" data-close-button>X</button>
+			</div>
+			<div id="change-keymap-form-container">
+			<label>
+					Change Sign Key (+/-):
+					<input class="inputs-new-key" type="text" />
+				</label>
+				<label>
+					Percent Key:
+					<input class="inputs-new-key" type="text" />
+				</label>
+				<label>
+					Square Root Key:
+					<input class="inputs-new-key" type="text" />
+				</label>
+				<label>
+					Format (1'000) Key:
+					<input class="inputs-new-key" type="text" />
+				</label>
+				<label>
+					GT Key:
+					<input class="inputs-new-key" type="text" />
+				</label>
+				<label>
+					Delete or Backspace Key:
+					<input class="inputs-new-key" type="text" />
+				</label>
+				<label>
+					C Key:
+					<input class="inputs-new-key" type="text" />
+				</label>
+				<label>
+					AC Key:
+					<input class="inputs-new-key" type="text" />
+				</label>
+				<label>
+					MC Key:
+					<input class="inputs-new-key" type="text" />
+				</label>
+				<label>
+					MR Key:
+					<input class="inputs-new-key" type="text" />
+				</label>
+				<label>
+					M- Key:
+					<input class="inputs-new-key" type="text" />
+				</label>
+				<label>
+					M+ Key:
+					<input class="inputs-new-key" type="text" />
+				</label>
+				<label>
+					X Key:
+					<input class="inputs-new-key" type="text" />
+				</label>
+				<label>
+					/ Key:
+					<input class="inputs-new-key" type="text" />
+				</label>
+				<label>
+					+ Key:
+					<input class="inputs-new-key" type="text" />
+				</label>
+				<label>
+					- Key:
+					<input class="inputs-new-key" type="text" />
+				</label>
+				<label>
+					= Key:
+					<input class="inputs-new-key" type="text" />
+				</label>
+				<label>
+					00 Key:
+					<input class="inputs-new-key" type="text" />
+				</label>
+				<label>
+					. Key:
+					<input class="inputs-new-key" type="text" />
+				</label>
+				<label>
+					000 Key:
+					<input class="inputs-new-key" type="text" />
+				</label>
+				<button id="submit-new-keymapping">Submit New Keymap Configuration</button>
+				<button id="restart-keymapping">Restart Keymap Configuration</button>
+			</div>
+		</div>
+		<div id="change-keymap-overlay"></div>
+    	<main>
+      	<section id="calculator">
+			<div id="display">
+				<div id="equation-placeholder" class="screen"></div>
+				<div id="input" class="screen"></div>
+			</div>
+			<div id="first-row">
+				<button id="btn-plus-minus">+/-</button>
+				<button id="btn-percent">%</button>
+				<button id="btn-sqrt">√</button>
+				<label class="toggle">
+					Format (1'000)
+					<input id="btn-format-thousands" class="toggle-input" type="checkbox" checked />
+					<div class="toggle-fill"></div>
+				</label>
+			</div>
+			<div id="main-buttons-container">
+				<div class="container">
+					<div id="first-column">
+						<button id="btn-gt">GT</button>
+						<button id="btn-delete"><img src="images/delete-arrow.svg" /><!--&lt;--></button>
+						<button id="btn-c">C</button>
+						<button id="btn-ac">AC</button>
+					</div>
+				</div>
+				<div class="container">
+					<div id="values">
+						<button class="seven btn-values">7</button>
+						<button class="eight btn-values">8</button>
+						<button class="nine btn-values">9</button>
+						<button class="four btn-values">4</button>
+						<button class="five btn-values">5</button>
+						<button class="six btn-values">6</button>
+						<button class="one btn-values">1</button>
+						<button class="two btn-values">2</button>
+						<button class="three btn-values">3</button>
+						<button class="zero btn-values">0</button>
+						<button class="zero-two btn-values">00</button>
+						<button class="decimal btn-values">.</button>
+						<button class="zero-three btn-values">000</button>
+					</div>
+					<div id="symbols">
+						<button class="times btn-symbols" name="*">X</button>
+						<button class="division btn-symbols" name="/">/</button>
+						<button class="sum btn-symbols" name="+">+</button>
+						<button class="sub btn-symbols" name="-">-</button>
+						<button id="equal" class="equal" name="=">=</button>
+					</div>
+				</div>
+				<div id="last-container" class="container">
+					<div id="last-column">
+						<button id="btn-mc">MC</button>
+						<button id="btn-mr">MR</button>
+						<button id="btn-m-minus">M-</button>
+						<button id="btn-m-plus">M+</button>
+					</div>
+				</div>
+			</div>
+      	</section>
+		<section id="history">
+			<h2>History:</h2>
+			<div id="history-values"></div>
+			<div id="history-controls">
+				<label><input id="history-check-all" type="checkbox">Select All</label>
+				<div data-format="json" class="copy-history control-icon-container">
+					<img src="images/copy.svg" alt="copy-icon" />
+					<p>JSON</p>
+				</div>
+				<div data-format="csv" class="copy-history control-icon-container">
+					<img src="images/copy.svg" alt="copy-icon" />
+					<p>CSV</p>
+				</div>
+				<div id="delete-history" class="control-icon-container">
+					<img src="images/trash.svg" alt="trash-icon" />
+				</div>
+			</div>
+		</section>
+    </main>
+	<footer>
+		<div id="info-container">
+			<div class="info">
+				<h4 id="info-creation">Created by</h4>
+				<div>nicolasglnd</div>
+			</div>
+		</div>
+	</footer>
+    <script src="app.js"></script>
+  </body>
+</html>
+
