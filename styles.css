@@ -1,21 +1,19 @@
-/* change the relative to absolute to get rid off the scroll */
 * {
     margin: 0;
     padding: 0;
-	/*border: 1px solid black;*/
 }
 
 :root {
-	--color-gt-last-column-buttons: #0ec6ff;		/*clear-blue*/
+	--color-gt-last-column-buttons: #0ec6ff;
 	--dark-yellow: #dfd15e;
-	--color-first-row-buttons: #f0f0a8;				/*clear-yellow*/
-	--color-ac-button: #ce5050;						/*main-red*/
-	--color-values-buttons: #121d4a;				/*dark-blue*/
-	--color-symbols-delete-buttons: #405ea6;		/*mid-blue*/
-	--color-c-delete-symbols-buttons: #d1e2e8;		/*blue-gray*/
-	--color-controls: #d8f5c4;						/*clear-green*/
-	--color-dropdown-active-li: #96e186;			/*clear-strong-green*/
-	--color-popup:#f7d4a6;							/*whity-yellow*/
+	--color-first-row-buttons: #f0f0a8;
+	--color-ac-button: #ce5050;
+	--color-values-buttons: #121d4a;
+	--color-symbols-delete-buttons: #405ea6;
+	--color-c-delete-symbols-buttons: #d1e2e8;
+	--color-controls: #d8f5c4;
+	--color-dropdown-active-li: #96e186;
+	--color-popup:#f7d4a6;
 	--color-body-background: #bfccd0;
 	--color-body-font-color: black;
 	--color-calculator-bg: #f2eede;
@@ -1093,9 +1091,5 @@ footer {
 		font-size: 17px;
 	}
 
-
-
-
 }
-
 
