@@ -38,7 +38,7 @@
 	--color-c-delete-symbols-buttons: #d1e2e8;
 	--color-controls: var(--color-calculator-bg);
 	--color-dropdown-active-li: var(--color-key-mapping-submit-buttons);
-	--color-popup: #25262bf5;
+	--color-popup: #25262b;
 	--color-body-background: #171717;
 	--color-body-font-color: white;
 	--color-calculator-bg: #25262b;
@@ -280,7 +280,6 @@ main {
     max-width: 80%;
 	max-height: 92%;
 	overflow: auto;
-	backdrop-filter: blur(4px);
 }
 
 #change-keymap-popup.active {
@@ -385,7 +384,7 @@ button, #first-row label.toggle {
 
 #calculator button, #first-row label.toggle {
 	border: none;
-	box-shadow: 0px 0px 1px var(--color-body-font-color) inset;
+	box-shadow: 0px 0px 2px var(--color-body-font-color) inset;
 }
 
 #display {
@@ -792,9 +791,14 @@ footer {
 		gap: 10px;
 	}
 	
-	button, #first-row label.toggle {
+	button {
 		font-size: 15px;
 	}
+
+	#first-row label.toggle {
+		font-size: 13px;
+	}
+
 	#controls button {
 		padding: 7px;
 	}
@@ -866,7 +870,7 @@ footer {
 		font-size: 14px;
 	}
 	#first-row label.toggle {
-		font-size: 12px;
+		font-size: 11px;
 	}
 	.toggle {
 		--width-toggle: 32px
@@ -950,7 +954,7 @@ footer {
 		justify-content: flex-start;
 		overflow-y: auto;
 		animation: fade-in 400ms forwards;
-		background-color: var(--color-popup);
+		background-color: #25262bf5;
 		backdrop-filter: blur(4px);
 	}
 
