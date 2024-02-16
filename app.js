@@ -47,7 +47,9 @@ const languageData = {
 		formatButton: "Format (1'000)",
 		history: {
 			historyTitle: "History",
-			selectAll: "Select All"
+			selectAll: "Select All",
+			equation: "Equation",
+			result: "Result"
 		},
 		notification: {
 			copyFail: "0 items were copied to the clipboard, error: ",
@@ -99,7 +101,9 @@ const languageData = {
 		formatButton: "Formato (1'000)",
 		history: {
 			historyTitle: "Historial",
-			selectAll: "Seleccionar todo"
+			selectAll: "Seleccionar todo",
+			equation: "Ecuación",
+			result: "Resultado"
 		},
 		notification: {
 			copyFail: "0 elementos han sido copiados al portapapeles, error: ",
@@ -1162,6 +1166,12 @@ copyHistoryBtns.forEach(btn => {
 });
 
 async function copyHistory(format) {
+	const languages = document.querySelectorAll("[data-language]");
+	const languageInput = Array.from(languages).filter(lang => lang.checked);
+	const languageSelected = languageInput[0].dataset.language;
+	let equation = languageData[languageSelected].history.equation;
+	let result = languageData[languageSelected].history.result;
+
 	historyValueContainers = document.querySelectorAll(".values-container");
 	historyChecks = document.querySelectorAll(".history-value-check");
 	const dataSelected = [];
@@ -1172,14 +1182,15 @@ async function copyHistory(format) {
 			const parentValue = historyChecks[i].parentElement;
 			const valuesContainer = parentValue.children[1];
 			const values = valuesContainer.children;
-			const dataObtained = { equation: "" };
+			const dataObtained = {};
+			dataObtained[equation] = "";
 
 			for (let j = 0; j < values.length; j++) {
 				if (j !== values.length - 1) {
-					dataObtained.equation += values[j].textContent;
+					dataObtained[equation] += values[j].textContent;
 				}
 				else {
-					dataObtained.result = values[j].textContent;
+					dataObtained[result] = values[j].textContent;
 				}
 			}
 			dataSelected.push(dataObtained);
@@ -1191,12 +1202,12 @@ async function copyHistory(format) {
 	dataJSON = JSON.stringify(dataSelected);
 
 	if (format === "json") {
-		let styledJSON = styleJSON(dataJSON, ["equation", "result"]);
+		let styledJSON = styleJSON(dataJSON, [equation, result]);
 		let response = await copyClipboard(styledJSON, itemsCopied);
 		createNotification(response);
 	}
 	else if (format === "csv") {
-		let csvData = jsonToCsv(dataJSON, ["equation", "result"]);
+		let csvData = jsonToCsv(dataJSON, [equation, result]);
 		let response = await copyClipboard(csvData, itemsCopied);
 		createNotification(response);
 	}
