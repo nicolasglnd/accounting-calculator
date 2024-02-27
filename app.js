@@ -55,7 +55,8 @@ const languageData = {
 			copyFail: "0 items were copied to the clipboard, error: ",
 			deleteFail: "0 items have been removed.",
 			replaceKeymap: "keymap has been replaced with the user's config",
-			restartKeymap: "User's keymap config has been removed"
+			restartKeymap: "User's keymap config has been removed",
+			SelectDecimals: "Decimals allowed selected."
 		}
 	},
 	spanish: {
@@ -111,7 +112,8 @@ const languageData = {
 			copyFail: "0 elementos han sido copiados al portapapeles, error: ",
 			deleteFail: "0 elementos han sido eliminados.",
 			replaceKeymap: "El mapeo de teclas ha sido remplazado por la configuración del usuario.",
-			restartKeymap: "La configuración de mapeo de teclas del usuario ha sido removida."
+			restartKeymap: "La configuración de mapeo de teclas del usuario ha sido removida.",
+			SelectDecimals: "Decimales permitidos seleccionados."
 		}
 	}
 };
@@ -362,7 +364,13 @@ decimalOptions.forEach(decimalOption => {
 	if (radioInput.checked) changeDecimalsAllowed(decimalOption, radioInput);
 	
 	decimalOption.addEventListener('click', () => {
-		if (radioInput.checked) changeDecimalsAllowed(decimalOption, radioInput);
+		if (radioInput.checked) {
+			changeDecimalsAllowed(decimalOption, radioInput);
+
+			const langSelected = getLanguageSelected();
+			let response = languageData[langSelected].notification.SelectDecimals;
+			createNotification(response);
+		}
 	});
 });
 
@@ -375,7 +383,6 @@ function changeDecimalsAllowed(option, radio) {
 	decimalDropdownTitle.textContent = option.firstElementChild.firstChild.textContent;
 	
 	decimalsAllowed = radio.value;
-	console.log("Decimals Selected");
 
 	localStorage.setItem("decimals", decimalsAllowed.toString());
 }
