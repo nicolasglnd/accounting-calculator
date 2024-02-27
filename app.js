@@ -56,7 +56,8 @@ const languageData = {
 			deleteFail: "0 items have been removed.",
 			replaceKeymap: "keymap has been replaced with the user's config",
 			restartKeymap: "User's keymap config has been removed",
-			SelectDecimals: "Decimals allowed selected."
+			selectDecimals: "Decimals allowed selected.",
+			selectLanguage: "Language selected."
 		}
 	},
 	spanish: {
@@ -113,7 +114,8 @@ const languageData = {
 			deleteFail: "0 elementos han sido eliminados.",
 			replaceKeymap: "El mapeo de teclas ha sido remplazado por la configuración del usuario.",
 			restartKeymap: "La configuración de mapeo de teclas del usuario ha sido removida.",
-			SelectDecimals: "Decimales permitidos seleccionados."
+			selectDecimals: "Decimales permitidos seleccionados.",
+			selectLanguage: "Lenguaje seleccionado."
 		}
 	}
 };
@@ -281,7 +283,15 @@ languageOptions.forEach(language => {
 	if (radioInput.checked) changeLanguage(language, radioInput, stopChangeLanguage);
 	
 	language.addEventListener('click', () => {
-		if (radioInput.checked) changeLanguage(language, radioInput);
+		if (radioInput.checked) {
+			const FINISHED = changeLanguage(language, radioInput);
+
+			if (FINISHED) {
+				const langSelected = getLanguageSelected();
+				let response = languageData[langSelected].notification.selectLanguage;
+				createNotification(response);
+			}
+		}
 	});
 });
 
@@ -347,7 +357,7 @@ function changeLanguage(language, radioInput, stop = false) {
 	//footer
 	document.querySelector("#info-creation").textContent = languageData[languageSelected].footer.creation;
 
-	console.log("Language Selected");
+	return true;
 }
 
 
@@ -365,11 +375,13 @@ decimalOptions.forEach(decimalOption => {
 	
 	decimalOption.addEventListener('click', () => {
 		if (radioInput.checked) {
-			changeDecimalsAllowed(decimalOption, radioInput);
+			const FINISHED = changeDecimalsAllowed(decimalOption, radioInput);
 
-			const langSelected = getLanguageSelected();
-			let response = languageData[langSelected].notification.SelectDecimals;
-			createNotification(response);
+			if (FINISHED) {
+				const langSelected = getLanguageSelected();
+				let response = languageData[langSelected].notification.selectDecimals;
+				createNotification(response);
+			}
 		}
 	});
 });
@@ -385,6 +397,7 @@ function changeDecimalsAllowed(option, radio) {
 	decimalsAllowed = radio.value;
 
 	localStorage.setItem("decimals", decimalsAllowed.toString());
+	return true;
 }
 
 
@@ -499,26 +512,26 @@ const _defaultKeymap = {
 };
 let keymap = _defaultKeymap;
 
-if (localStorage.getItem("keymap") !== null) {
-	keymap = JSON.parse(localStorage.getItem("keymap"));
-
-	const langSelected = getLanguageSelected();
-	let response = languageData[langSelected].notification.replaceKeymap;
-	createNotification(response);
-}
+if (localStorage.getItem("keymap") !== null) keymap = JSON.parse(localStorage.getItem("keymap"));
 
 populateKeymapPopup();
 submitNewKeymapping.addEventListener('click', () => {
+	let hasChanged = false;
 	Object.keys(keymap).forEach((key, index) => {
 		if (keymap[key] !== formContainer.children[index].firstElementChild.value) {
 			keymap[key] = formContainer.children[index].firstElementChild.value;
+
+			if (!hasChanged) hasChanged = true;
 		}
 	});
-	localStorage.setItem("keymap", JSON.stringify(keymap));
 
-	const langSelected = getLanguageSelected();
-	let response = languageData[langSelected].notification.replaceKeymap;
-	createNotification(response);
+	if (hasChanged) {
+		localStorage.setItem("keymap", JSON.stringify(keymap));
+
+		const langSelected = getLanguageSelected();
+		let response = languageData[langSelected].notification.replaceKeymap;
+		createNotification(response);
+	}
 });
 
 btnRestartKeymapping.addEventListener('click', restartKeymap);
