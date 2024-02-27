@@ -53,7 +53,9 @@ const languageData = {
 		},
 		notification: {
 			copyFail: "0 items were copied to the clipboard, error: ",
-			deleteFail: "0 items have been removed."
+			deleteFail: "0 items have been removed.",
+			replaceKeymap: "keymap has been replaced with the user's config",
+			restartKeymap: "User's keymap config has been removed"
 		}
 	},
 	spanish: {
@@ -107,7 +109,9 @@ const languageData = {
 		},
 		notification: {
 			copyFail: "0 elementos han sido copiados al portapapeles, error: ",
-			deleteFail: "0 elementos han sido eliminados."
+			deleteFail: "0 elementos han sido eliminados.",
+			replaceKeymap: "El mapeo de teclas ha sido remplazado por la configuración del usuario.",
+			restartKeymap: "La configuración de mapeo de teclas del usuario ha sido removida."
 		}
 	}
 };
@@ -119,6 +123,7 @@ const decimalsPickerContainer = document.querySelector("#container-decimals-drop
 const decimalDropdownTitle = decimalsPickerContainer.querySelector(".dropdown").firstElementChild.firstChild;
 const languageContainer = document.querySelector("#language-container");
 const languageOptions = document.querySelectorAll(".language-option");
+const languagesRadio = document.querySelectorAll("[data-language]");
 const btnHistory = document.querySelector("#history-toggle");
 const btnDarkMode = document.querySelector("#dark-mode-toggle");
 const controlsCheck = document.querySelector("#controls-check");
@@ -241,6 +246,11 @@ function appendDecimals(number) {
 	return result;
 }
 
+function getLanguageSelected() {
+	const radioChecked = Array.from(languagesRadio).filter(lang => lang.checked);
+	const languageSelected = radioChecked[0].dataset.language;
+	return languageSelected;
+}
 
 
 //UI controls
@@ -484,37 +494,37 @@ let keymap = _defaultKeymap;
 
 if (localStorage.getItem("keymap") !== null) {
 	keymap = JSON.parse(localStorage.getItem("keymap"));
-	messageKeymapReplaced();
+
+	const langSelected = getLanguageSelected();
+	let response = languageData[langSelected].notification.replaceKeymap;
+	createNotification(response);
 }
 
 populateKeymapPopup();
 submitNewKeymapping.addEventListener('click', () => {
 	Object.keys(keymap).forEach((key, index) => {
 		if (keymap[key] !== formContainer.children[index].firstElementChild.value) {
-			let temp = keymap[key];
 			keymap[key] = formContainer.children[index].firstElementChild.value;
-			console.log(`keymap: ${temp} > ${keymap[key]}`);
-
 		}
 	});
 	localStorage.setItem("keymap", JSON.stringify(keymap));
-	messageKeymapReplaced();
 
+	const langSelected = getLanguageSelected();
+	let response = languageData[langSelected].notification.replaceKeymap;
+	createNotification(response);
 });
 
 btnRestartKeymapping.addEventListener('click', restartKeymap);
 
 
-
-function messageKeymapReplaced() {
-	console.log("keymap has been replaced with the user's config");
-}
-
 function restartKeymap() {
 	localStorage.removeItem("keymap");
 	keymap = _defaultKeymap;
 	populateKeymapPopup();
-	console.log("User's keymap config has been removed");
+
+	const langSelected = getLanguageSelected();
+	let response = languageData[langSelected].notification.restartKeymap;
+	createNotification(response);
 }
 
 function populateKeymapPopup() {
@@ -1165,12 +1175,12 @@ copyHistoryBtns.forEach(btn => {
 	});
 });
 
+
+
 async function copyHistory(format) {
-	const languages = document.querySelectorAll("[data-language]");
-	const languageInput = Array.from(languages).filter(lang => lang.checked);
-	const languageSelected = languageInput[0].dataset.language;
-	let equation = languageData[languageSelected].history.equation;
-	let result = languageData[languageSelected].history.result;
+	const langSelected = getLanguageSelected();
+	let equation = languageData[langSelected].history.equation;
+	let result = languageData[langSelected].history.result;
 
 	historyValueContainers = document.querySelectorAll(".values-container");
 	historyChecks = document.querySelectorAll(".history-value-check");
