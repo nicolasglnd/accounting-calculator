@@ -761,6 +761,13 @@ footer {
 
 }
 
+@media(max-width: 1160px) {
+	#controls {
+		gap: 24px;
+		font-size: 18px;
+	}
+}
+
 @media(max-width: 1080px) {
 	#controls {
 		font-size: 17px;
@@ -771,7 +778,7 @@ footer {
 	#language-container ul > li > label { min-width: 69px; }
 }
 
-@media(max-width: 945px) {
+@media(max-width: 1020px) {
 	#controls {
 		font-size: 15px;
 		gap: 15px;
@@ -780,12 +787,14 @@ footer {
 
 
 	#container-decimals-dropdown .dropdown ul > li > label { min-width: 90px; }
-	#language-container ul > li > label { min-width: 57px; }
+	#language-container ul > li > label { min-width: 59px; }
 
 	#calculator { width: 780px; }
+
+	#first-row label.toggle { font-size: 17px; }
 }
 
-@media(max-width: 850px) {
+@media(max-width: 910px) {
 	#controls {
 		font-size: 13.5px;
 		gap: 10px;
@@ -805,7 +814,7 @@ footer {
 
 
 	#container-decimals-dropdown .dropdown ul > li > label { min-width: 82px; }
-	#language-container ul > li > label { min-width: 51px; }
+	#language-container ul > li > label { min-width: 53px; }
 
 	.dropdown { --dropdown-height: 13px }
 
@@ -861,7 +870,7 @@ footer {
 }
 
 
-@media(max-width: 715px) {
+@media(max-width: 780px) {
 	#controls {
 		font-size: 12px;
 		gap: 10px;
@@ -870,7 +879,7 @@ footer {
 		font-size: 14px;
 	}
 	#first-row label.toggle {
-		font-size: 11px;
+		font-size: 10px;
 	}
 	.toggle {
 		--width-toggle: 32px
@@ -880,7 +889,7 @@ footer {
 		padding: 5px
 	}
 
-	.dropdown { --dropdown-height: 11px }
+	.dropdown { --dropdown-height: 14px }
 
 
 	#calculator {
@@ -933,12 +942,12 @@ footer {
 	.times, .division { height: 0px; }
 
 	#container-decimals-dropdown .dropdown ul > li > label { min-width: 72px; }
-	#language-container ul > li > label { min-width: 45px; }
+	#language-container ul > li > label { min-width: 47px; }
 
 
 }
 
-@media(max-width: 660px) {
+@media(max-width: 720px) {
 	#controls {
 		flex-direction: column;
 		position: fixed;
@@ -970,7 +979,7 @@ footer {
 		display: flex;
 	}
 
-	#container-decimals-dropdown .dropdown ul > li > label { min-width: 79px; }
+	#container-decimals-dropdown .dropdown ul > li > label { min-width: 87px; }
 	#language-container ul > li > label { min-width: 59px; }
 
 	#input {
@@ -1015,7 +1024,7 @@ footer {
 
 	#first-row > label.toggle {
 		min-width: 96px;
-		font-size: 11px;
+		font-size: 9px;
 	}
 
 	:root {--gap-main-buttons: 10px;}
